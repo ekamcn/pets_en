@@ -1,5 +1,5 @@
-import { redirect, type LoaderFunctionArgs } from '@shopify/remix-oxygen';
-import { useLoaderData, type MetaFunction } from 'react-router';
+import {redirect, type LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {useLoaderData, type MetaFunction} from 'react-router';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -7,18 +7,18 @@ import {
   getProductOptions,
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
+  Image,
 } from '@shopify/hydrogen';
-import { ProductPrice } from '~/components/ProductPrice';
+import {ProductPrice} from '~/components/ProductPrice';
 // import { ProductImage } from '~/components/ProductImage';
-import { ProductForm } from '~/components/ProductForm';
-import { redirectIfHandleIsLocalized } from '~/lib/redirect';
-import { ProductImageSlider } from '~/components/ProductImageSlider';
-import { Image } from '@shopify/hydrogen';
+import {ProductForm} from '~/components/ProductForm';
+import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {ProductImageSlider} from '~/components/ProductImageSlider';
 import FaqSection from '~/components/FaqSection';
 import ProductList from '~/components/ProductList';
-import { FixedBuyNowButton } from '~/components/FixedBuyNowButton';
-import { Suspense } from 'react';
-import { Await } from 'react-router';
+import {FixedBuyNowButton} from '~/components/FixedBuyNowButton';
+import {Suspense, useEffect, useRef, useState} from 'react';
+import {Await} from 'react-router';
 
 const sections = [
   {
@@ -95,14 +95,12 @@ const sections = [
               You can reach us by visiting our Contact Us page here or by
               emailing us at{' '}
               <a
-                href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}`}
-
-                className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
+                href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
+                className=" hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
               >
-                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
-
+                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
               </a>
-              "
+              &#34;
             </p>
           </div>
         ),
@@ -111,9 +109,9 @@ const sections = [
   },
 ];
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
+export const meta: MetaFunction<typeof loader> = ({data}) => {
   return [
-    { title: `Hydrogen | ${data?.product.title ?? ''}` },
+    {title: `Hydrogen | ${data?.product.title ?? ''}`},
     {
       rel: 'canonical',
       href: `/products/${data?.product.handle}`,
@@ -128,7 +126,7 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return { ...deferredData, ...criticalData };
+  return {...deferredData, ...criticalData};
 }
 
 /**
@@ -140,33 +138,33 @@ async function loadCriticalData({
   params,
   request,
 }: LoaderFunctionArgs) {
-  const { handle } = params;
-  const { storefront } = context;
+  const {handle} = params;
+  const {storefront} = context;
 
   if (!handle) {
     throw new Error('Expected product handle to be defined');
   }
 
-  const [{ product }] = await Promise.all([
+  const [{product}] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
-      variables: { handle, selectedOptions: getSelectedProductOptions(request) },
+      variables: {handle, selectedOptions: getSelectedProductOptions(request)},
     }),
     // Add other queries here, so that they are loaded in parallel
   ]);
 
   if (!product?.id) {
-    throw new Response(null, { status: 404 });
+    throw new Response(null, {status: 404});
   }
 
   // The API handle might be localized, so redirect to the localized handle
-  redirectIfHandleIsLocalized(request, { handle, data: product });
+  redirectIfHandleIsLocalized(request, {handle, data: product});
 
   return {
     product,
   };
 }
 
-function loadDeferredData({ context, params }: LoaderFunctionArgs) {
+function loadDeferredData({context, params}: LoaderFunctionArgs) {
   const recommendedProducts = context.storefront
     .query(RECOMMENDED_PRODUCTS_QUERY)
     .catch((error) => {
@@ -221,11 +219,11 @@ function getDeliveryDate(daysToAdd: number) {
   if (locale === 'fr') {
     // French format: DD/MM
     const day = String(date.getDate()).padStart(2, '0');
-    const monthName = date.toLocaleDateString('en', { month: 'long' });
+    const monthName = date.toLocaleDateString('en', {month: 'long'});
     return `${day}/${monthName}`;
   } else {
     // US format: Full month name with day
-    const monthName = date.toLocaleDateString('en', { month: 'long' });
+    const monthName = date.toLocaleDateString('en', {month: 'long'});
     const day = String(date.getDate()).padStart(2, '0');
     return `${monthName} ${day}`;
   }
@@ -241,19 +239,27 @@ function FeatureItem({
   desc: string;
 }) {
   return (
-    <div className="flex items-center gap-2">
-      <img
-        src={icon}
-        alt={title}
-        className="w-8 h-8 object-contain"
+    <div className="flex items-center gap-3 sm:gap-2 w-full">
+      <span
+        className="w-8 h-8 inline-block"
+        role="img"
+        aria-label={title}
         style={{
-          filter:
-            'invert(62%) sepia(16%) saturate(431%) hue-rotate(345deg) brightness(91%) contrast(88%)',
+          backgroundColor: 'var(--color-1)',
+          WebkitMaskImage: `url(${icon})`,
+          maskImage: `url(${icon})`,
+          WebkitMaskRepeat: 'no-repeat',
+          maskRepeat: 'no-repeat',
+          WebkitMaskSize: 'contain',
+          maskSize: 'contain',
+          WebkitMaskPosition: 'center',
+          maskPosition: 'center',
         }}
       />
-      <div>
-        <strong className="block text-sm">{title}</strong>
-        <span className="text-xs">{desc}</span>
+ 
+      <div className="flex flex-col w-full">
+        <strong className="block text-[13px]  tracking-wider">{title}</strong>
+        <span className="text-[13px]  tracking-wide  opacity-80">{desc}</span>
       </div>
     </div>
   );
@@ -275,12 +281,39 @@ function CheckIcon() {
 }
 
 export default function Product() {
-  const { product } = useLoaderData<typeof loader>();
+  const {product} = useLoaderData<typeof loader>();
+
+  // State to track visibility of the Buy Now button
+  const [isBuyNowVisible, setIsBuyNowVisible] = useState(true);
+  const buyNowButtonRef = useRef<HTMLButtonElement>(null);
+  // Intersection Observer to detect when Buy Now button is out of view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsBuyNowVisible(entry.isIntersecting);
+      },
+      {
+        root: null,
+        threshold: 0,
+      },
+    );
+
+    if (buyNowButtonRef.current) {
+      observer.observe(buyNowButtonRef.current);
+    }
+
+    return () => {
+      if (buyNowButtonRef.current) {
+        observer.unobserve(buyNowButtonRef.current);
+      }
+    };
+  }, []);
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
+  // console.log(selectedVariant?.price, "fhjdsfghjdsfhgds");
 
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
@@ -289,16 +322,16 @@ export default function Product() {
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
-  const { title, descriptionHtml } = product;
+  const {title, descriptionHtml} = product;
   const data = useLoaderData<typeof loader>();
   return (
     <div>
-      <div className="product flex flex-col md:flex-row gap-4 mx-auto max-w-7xl p-4 pb-20 !pt-10">
+      <div className="product flex flex-col md:flex-row gap-4 mx-auto max-w-7xl p-4 !pt-10">
         <div className="flex flex-col items-center">
           <div className="sticky top-8">
             <ProductImageSlider
               images={
-                product.images?.edges.map((edge: { node: any }) => ({
+                product.images?.edges.map((edge: {node: any}) => ({
                   id: edge.node.id,
                   url: edge.node.url || edge.node.src || edge.node.originalSrc,
                   altText: edge.node.altText,
@@ -309,24 +342,25 @@ export default function Product() {
             />
           </div>
         </div>
-        <div className="product-main md:w-4/5 space-y-8 pr-2">
+        <div className="product-main md:w-11/12 space-y-8">
           {/* Product Title */}
           <h1 className="text-3xl font-bold mb-2">{title}</h1>
 
-          <p className="!pb-8">
-            <strong>Cosy Critters  🇺🇸: </strong>The American Brand That Helps You
-            Save BIG with Unbeatable Prices!
+          <p className="!pb-8 text-base">
+            <strong>{import.meta.env.VITE_STORE_TITLE}
+ 🇺🇸: </strong>The American Brand That Helps You Save
+            BIG with Unbeatable Prices!
           </p>
           {/* Price, Date, Info */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-end gap-2">
-            <span className="text-2xl font-bold text-white bg-[var(--color-1)] px-4 py-4 rounded-lg">
+          <div className="flex sm:flex-row items-center sm:items-end gap-4 lg:!gap-2 pb-3">
+            <span className="font-bold text-white bg-[var(--color-1)] px-3 py-3 rounded-lg">
               <ProductPrice
                 price={selectedVariant?.price}
                 compareAtPrice={selectedVariant?.compareAtPrice}
               />
             </span>
-            <span className="text-sm text-gray-700 pl-0 sm:pl-4 pb-3 ">
-              Today's Offer —
+            <span className="text-sm text-gray-700 pl-0 sm:pl-4 lg:pb-5 tracking-widest">
+              Today&apos;s Offer —
               {new Date().toLocaleDateString('en-US', {
                 weekday: 'long',
                 year: 'numeric',
@@ -348,10 +382,10 @@ export default function Product() {
             >
               <path
                 d="M9.69502 0.6786C9.91338 0.601796 10.1516 0.603123 10.3691 0.682353L18.2151 3.54058C18.61 3.68445 18.8728 4.05988 18.8728 4.48018V14.4287C18.8728 14.8074 18.6588 15.1537 18.32 15.3231L10.4731 19.2465C10.196 19.385 9.87022 19.3873 9.59117 19.2526L1.45405 15.3244C1.10843 15.1576 0.888794 14.8076 0.888794 14.4239V4.48434C0.888794 4.05997 1.15665 3.68181 1.55699 3.541L9.69502 0.6786ZM6.07999 3.01017L2.5346 4.25719L10.149 7.63545L13.5692 6.118L6.07999 3.01017ZM6.78606 2.76183L14.1997 5.83828L17.5367 4.35774L10.0268 1.62195L6.78606 2.76183ZM1.88879 14.4239L1.88879 5.06467L9.64898 8.50762V18.1701L1.88879 14.4239ZM17.8728 14.4287L10.649 18.0405V8.50762L17.8728 5.30263V14.4287Z"
-                fill-rule="evenodd"
+                fillRule="evenodd"
               ></path>
             </svg>
-            <span className="font-normal text-sm pl-2">
+            <span className="font-normal text-[15px] pl-2 lg:text-base">
               Limited Stock | Ready to Ship
             </span>
           </p>
@@ -366,18 +400,19 @@ export default function Product() {
               width="20"
               height="20"
               viewBox="0 0 20 20"
+              className="w-7 h-7  lg:w-5 lg:h-5"
             >
               <path d="M18.7014 11.3962C18.7014 16.075 14.9085 19.8679 10.2297 19.8679C5.55095 19.8679 1.75806 16.075 1.75806 11.3962C1.75806 6.71746 5.55095 2.92457 10.2297 2.92457C14.9085 2.92457 18.7014 6.71746 18.7014 11.3962ZM10.2297 18.8679C14.3562 18.8679 17.7014 15.5227 17.7014 11.3962C17.7014 7.26974 14.3562 3.92457 10.2297 3.92457C6.10323 3.92457 2.75806 7.26974 2.75806 11.3962C2.75806 15.5227 6.10323 18.8679 10.2297 18.8679Z"></path>
               <path
                 d="M10.7203 1.7782H9.7392C9.18691 1.7782 8.7392 2.22591 8.7392 2.7782V2.92456H11.7203V2.7782C11.7203 2.22591 11.2726 1.7782 10.7203 1.7782ZM9.7392 0.778198C8.63463 0.778198 7.7392 1.67363 7.7392 2.7782V3.92456H12.7203V2.7782C12.7203 1.67363 11.8249 0.778198 10.7203 0.778198H9.7392Z"
-                fill-rule="evenodd"
+                fillRule="evenodd"
               ></path>
               <path d="M8.98448 11.3963C8.98448 10.7086 9.54201 10.1511 10.2298 10.1511C10.9175 10.1511 11.475 10.7086 11.475 11.3963C11.475 12.0841 10.9175 12.6416 10.2298 12.6416C9.54201 12.6416 8.98448 12.0841 8.98448 11.3963Z"></path>
               <path d="M9.72974 11.3962C9.72974 11.1201 9.95359 10.8962 10.2297 10.8962H15.2108C15.487 10.8962 15.7108 11.1201 15.7108 11.3962C15.7108 11.6724 15.487 11.8962 15.2108 11.8962H10.2297C9.95359 11.8962 9.72974 11.6724 9.72974 11.3962Z"></path>
               <path d="M10.2297 5.91517C10.5059 5.91517 10.7297 6.13902 10.7297 6.41517V8.90572C10.7297 9.18186 10.5059 9.40572 10.2297 9.40572C9.95359 9.40572 9.72974 9.18186 9.72974 8.90572V6.41517C9.72974 6.13902 9.95359 5.91517 10.2297 5.91517Z"></path>
               <path d="M13.9544 7.30685C14.1497 7.50211 14.1497 7.8187 13.9544 8.01396L12.1934 9.77505C11.9981 9.97031 11.6815 9.97031 11.4862 9.77505C11.291 9.57978 11.291 9.2632 11.4862 9.06794L13.2473 7.30685C13.4426 7.11159 13.7592 7.11159 13.9544 7.30685Z"></path>
             </svg>
-            <span className="font-normal text-sm">
+            <span className="font-normal lg:text-base text-[15px] tracking-widest">
               Estimated Delivery Between:&nbsp;
               <strong> {getDeliveryDateOld(2)} </strong> and{' '}
               <strong> {getDeliveryDateOld(4)} </strong>
@@ -388,6 +423,7 @@ export default function Product() {
           <ProductForm
             productOptions={productOptions}
             selectedVariant={selectedVariant}
+            buyNowButtonRef={buyNowButtonRef}
           />
 
           {/* <img src="{import.meta.env.VITE_DOMAIN_NAME}/cdn/shop/files/2025-06-24_19.05.29.jpg?v=1750784750" alt="" /> */}
@@ -395,7 +431,7 @@ export default function Product() {
             <Image src="./image_one.jpg" />
           </div>
           {/* Feature Grid */}
-          <div className="grid grid-cols-2 min-lg:grid-cols-2 gap-4 shadow-xl p-4 rounded-lg">
+          <div className="grid grid-cols-2  gap-4 sm:gap-4 shadow-xl p-4 sm:p-5 rounded-lg w-full">
             <FeatureItem
               icon="https://cdn.shopify.com/s/files/1/0805/7733/1526/files/surprise.png?v=1722838527"
               title="Free Shipping"
@@ -419,12 +455,12 @@ export default function Product() {
           </div>
           {/* Product Description */}
           <div className="prose max-w-none mt-4">
-            <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+            <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
           </div>
           {/* Money-Back Guarantee Box */}
           {/* <div className="bg-gray-100 border border-gray-300 rounded-lg p-4 shadow w-full max-lg:w-3/4 mx-auto"> */}
 
-          <div className="bg-[#f9f9f9] border border-gray-300 rounded-lg p-4 shadow-lg w-full lg:w-[350px] xl:w-[420px] mx-auto">
+          <div className="bg-[#f9f9f9] border border-gray-300 rounded-lg p-4 shadow-lg w-full lg:w-[400px] xl:w-[420px] mx-auto">
             <div className="flex items-center pb-6 justify-center pt-3">
               <svg
                 width="24"
@@ -443,7 +479,7 @@ export default function Product() {
 
             <ul className="list-none pl-0 mb-2 text-sm text-gray-700">
               <li className="flex items-center pb-2">
-                You're protected by our purchase guarantee
+                You&apos;re protected by our purchase guarantee
               </li>
               <li className="flex items-center mb-1">
                 <CheckIcon /> 30-day satisfaction guarantee
@@ -466,17 +502,17 @@ export default function Product() {
                 Our customer support team is available 5 days a week:
                 <br />
                 <a
-                  href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
+                  href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
                   className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
                 >
                   {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
                 </a>
                 <br />
                 <a
-                  href="tel:+14842148789"
+                  href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`}
                   className=" hover:text-blue-300 transition-colors !text-[var(--color-1)] underline underline-offset-4"
                 >
-                  +14842989854
+                  {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}
                 </a>
               </p>
             </div>
@@ -498,16 +534,16 @@ export default function Product() {
           }}
         />
       </div>
-      <div className="pb-20">
-        <FaqSection sections={sections} showNewsletter incline heading='Newsletter' />
+      <div>
+        <FaqSection sections={sections} showNewsletter heading="Newsletter" />
       </div>
-      <div className="pb-20">
+      <div>
         <Suspense fallback={<div>Loading...</div>}>
           <Await resolve={data.recommendedProducts}>
             {(response: any) =>
               response &&
-                response.products &&
-                response.products.nodes.length > 0 ? (
+              response.products &&
+              response.products.nodes.length > 0 ? (
                 <ProductList products={response.products.nodes} />
               ) : null
             }
@@ -516,7 +552,9 @@ export default function Product() {
       </div>
 
       {/* Fixed Buy Now Button */}
-      <FixedBuyNowButton selectedVariant={selectedVariant} />
+      {!isBuyNowVisible && (
+        <FixedBuyNowButton selectedVariant={selectedVariant} />
+      )}
     </div>
   );
 }
@@ -652,5 +690,3 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
  }
  }
 ` as const;
-
-

@@ -11,6 +11,7 @@ export function ProductItem({
   product,
   loading,
   badgeText,
+  badgeIcon,
 }: {
   product:
   | CollectionItemFragment
@@ -18,6 +19,7 @@ export function ProductItem({
   | RecommendedProductFragment;
   loading?: 'eager' | 'lazy';
   badgeText?: string; // Optional badge text for flash deals or discounts
+  badgeIcon?: boolean;
 }) {
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
@@ -42,9 +44,17 @@ export function ProductItem({
       prefetch="intent"
       to={variantUrl}
     >
-      {/* Flash Deal Badge - positioned absolute like the CSS */}
       {badgeText && (
-        <div className="absolute top-1 left-1 bg-[var(--color-1)] text-white p-2 text-xs rounded-sm flex items-center">
+        <div className="absolute top-1 left-1 bg-[var(--color-1)] text-white p-2 text-xs rounded-sm flex items-center gap-1">
+          {badgeIcon && (
+            <img 
+              src="/alarmClock.svg" 
+              alt="Alarm clock icon" 
+              width="16" 
+              height="16"
+              className="flex-shrink-0"
+            />
+          )}
           {badgeText}
         </div>
       )}
@@ -64,9 +74,9 @@ export function ProductItem({
       </div>
 
       {/* Product Title */}
-      <h4 className="flex flex-wrap text-sm font-bold text-gray-800 mb-2 line-clamp-2 min-h-[2.5rem] leading-tight">
+<p className="text-sm font-bold text-gray-800 mb-2 line-clamp-2 min-h-[2.5rem] leading-tight text-center">
         {product.title}
-      </h4>
+      </p>
 
       {/* Price Info Section - with margin like CSS */}
       <div

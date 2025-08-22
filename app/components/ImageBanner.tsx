@@ -13,8 +13,8 @@ interface ImageBannerProps {
 
 // Main banner component
 export function ImageBanner({
-    title = 'Cosy Critters ',
-    subtitle = "At Cosy Critters, every pet is more than just a companion — they're family.",
+    title = `${import.meta.env.VITE_STORE_TITLE} `,
+    subtitle = `At ${import.meta.env.VITE_STORE_TITLE}, every pet is more than just a companion — they're family.`,
     description = 'That’s why we created a boutique entirely dedicated to their comfort, happiness, and everyday well-being. Our mission is to bring you high-quality, practical, soft, and irresistibly cute products to pamper your loyal companion just the way they deserve.',
     imageUrl = '',
     mobileImageUrl = '',
@@ -80,12 +80,9 @@ export function ImageBanner({
                     <div className="w-full text-center flex flex-col items-center justify-center">
                         <div className="max-w-screen mx-auto">
                             {/* Description */}
-                            <p className="text-sm sm:text-base lg:text-lg text-stone-200 mb-8 sm:mb-10 lg:mb-12 leading-relaxed max-w-6xl mx-auto">
-                                <strong> {subtitle}</strong>
+                          <p className="!text-sm lg:!text-base text-white !leading-7 max-w-7xl mx-auto !py-3">
+                                <strong> {subtitle}</strong> {description}
                                 <br />
-                            </p>
-                            <p className="!mt-4 text-sm sm:text-base lg:text-lg text-stone-200 mb-8 sm:mb-10 lg:mb-12 leading-relaxed max-w-6xl mx-auto">
-                                {description}
                             </p>
 
                             {/* Call to Action Button
@@ -113,9 +110,9 @@ export function ImageBanner({
 
 // Alternative banner with more layout options
 export function ImageBannerVariant({
-    title = 'Cosy Critters s',
-    subtitle = 'Welcome to Cosy Critters , a proudly American brand committed to transforming your home with style, quality, and unbeatable value.',
-    description = 'Founded by a team of passionate home decor enthusiasts, our mission is simple: to make your living space more beautiful, more functional, and above all — more accessible for everyone.',
+    title = `${import.meta.env.VITE_STORE_TITLE}`,
+    subtitle = `Welcome to ${import.meta.env.VITE_STORE_TITLE} , a proudly American brand committed to transforming your home with style, quality, and unbeatable value.`,
+    description = 'That’s why we created a boutique entirely dedicated to their comfort, happiness, and everyday well-being. Our mission is to bring you high-quality, practical, soft, and irresistibly cute products to pamper your loyal companion just the way they deserve.',
     imageUrl = '',
     buttonText = 'Shop Now',
     buttonUrl = '/collections/all',

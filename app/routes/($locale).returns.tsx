@@ -22,8 +22,8 @@ export default function ReturnPolicyPage() {
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Policy Overview</h2>
                     <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Return Period: {import.meta.env.VITE_RETURN_PERIOD} days</li>
-                        <li>Refund Processing Time: {import.meta.env.VITE_REFUND_PROCESSING_TIME} business days</li>
+                        <li>Return Period: {import.meta.env.VITE_RETURN_PERIOD} days from delivery date</li>
+                        <li>Refund Processing Time: {import.meta.env.VITE_REFUND_PROCESSING_TIME} business days from receipt</li>
                         <li>Return Shipping Costs: {import.meta.env.VITE_RETURN_SHIPPING_POLICY}</li>
                         <li>Return label: Included in the package, Free</li>
                     </ul>
@@ -36,10 +36,10 @@ export default function ReturnPolicyPage() {
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Return Conditions</h2>
                     <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>We offer returns under the following conditions:</p>
                     <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Return Window: {import.meta.env.VITE_RETURN_PERIOD} days</li>
+                        <li>Return Window:Items can be returned within {import.meta.env.VITE_RETURN_PERIOD} days of delivery.</li>
                         <li>Item Condition: Items must be in their original, unused condition with all tags attached and in the original packaging.</li>
                         <li>Receipt or Proof of Purchase: Required for all returns.</li>
-                        <li>Exceptions: {import.meta.env.VITE_SALE_ITEMS_POLICY}</li>
+                        <li>Exceptions: Certain products, such as custom or personalized items and hygiene products (e.g., undergarments), are {import.meta.env.VITE_SALE_ITEMS_POLICY}</li>
                     </ul>
                 </div>
                 <div>

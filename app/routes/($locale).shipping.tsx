@@ -21,14 +21,14 @@ export default function ShippingPolicyPage() {
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Shipping Range</h2>
                     <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Delivery Area: {import.meta.env.VITE_DELIVERY_AREAS}</li>
+                        <li>Delivery Area: We currently ship {import.meta.env.VITE_DELIVERY_AREAS}</li>
                         <li>Future Expansion: We are considering expanding our delivery areas.</li>
                     </ul>
                 </div>
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Order Processing Time</h2>
                     <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Processing Time: {import.meta.env.VITE_ORDER_PROCESSING_TIME} business days</li>
+                        <li>Processing Time: Orders are processed within {import.meta.env.VITE_ORDER_PROCESSING_TIME} business days, Monday to Saturday.</li>
                         <li>Cut-off Time: Orders placed before 22:00 (GMT-08:00) Pacific Standard Time (Los Angeles) will be processed the same day; those placed after will be processed the next business day.</li>
                         <li>No Shipping Days: Orders are not processed on Sunday or public holidays.</li>
                     </ul>
@@ -36,14 +36,14 @@ export default function ShippingPolicyPage() {
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Delivery Time</h2>
                     <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Estimated Delivery: {import.meta.env.VITE_STANDARD_DELIVERY_TIME} business days</li>
+                        <li>Estimated Delivery: Orders typically arrive within {import.meta.env.VITE_STANDARD_DELIVERY_TIME} business days after processing, depending on the destination.</li>
                         <li>Total Delivery Time: {import.meta.env.VITE_STANDARD_DELIVERY_TIME} business days</li>
                     </ul>
                 </div>
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Shipping Process</h2>
                     <ul className="!list-disc !list-inside text-gray-700 space-y-2 !text-sm sm:!text-base !pl-6 lg:!pl-8">
-                        <li>Courier Services: {import.meta.env.VITE_DELIVERY_PROVIDER}</li>
+                        <li>Courier Services: We use reliable carriers such as  {import.meta.env.VITE_DELIVERY_PROVIDER} for all shipments.</li>
                         <li>Tracking Information: After your order is shipped, you will receive an email with tracking details.</li>
                     </ul>
                 </div>

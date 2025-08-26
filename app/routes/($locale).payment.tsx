@@ -32,8 +32,8 @@ export default function PaymentTermsPage() {
                 </div>
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Refunds</h2>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base'>If you wish to obtain a refund, please contact us at the following address: {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}. You have 30 days from receipt of your order to exercise your right of withdrawal.</p>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base'>The refund will be processed to the payment method used for the order and will take 5 business days to appear in your bank account.</p>
+                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base'>If you wish to obtain a refund, please contact us at the following address: {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}. You have {import.meta.env.VITE_REFUND_PERIOD} days from receipt of your order to exercise your right of withdrawal.</p>
+                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base'>The refund will be processed to the payment method used for the order and will take {import.meta.env.VITE_REFUND_PROCESSING_TIME} business days to appear in your bank account.</p>
                 </div>
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Claims and Disputes</h2>
@@ -45,13 +45,13 @@ export default function PaymentTermsPage() {
                 </div>
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Contact Information</h2>
-<p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>To contact us, simply send an email to {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL} or call {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE} Monday to Friday - 9:00 AM to 5:00 PM.</p>
+                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4'>To contact us, simply send an email to {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL} or call {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE} Monday to Friday - {import.meta.env.VITE_BUSINESS_HOURS}.</p>
                      <p className='flex flex-col gap-2 !text-sm sm:!text-base'>
                         <span>Address: {import.meta.env.VITE_COMPANY_ADDRESS}</span>
                         <span>Email: <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}</a></span>
                         <span>Phone: <a href={`tel:${import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}`} className="underline underline-offset-4">{import.meta.env.VITE_CUSTOMER_SERVICE_PHONE}</a></span>
                         <span>Website: <a href={`${import.meta.env.VITE_DOMAIN_NAME}`} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{import.meta.env.VITE_DOMAIN_NAME}</a></span>
-                        <span className='pt-4'>Last updated: 16-7-2025</span>
+                        <span className='pt-4'>Last updated: {import.meta.env.VITE_PP_LAST_UPDATED_DATE}</span>
                     </p>
                 </div>
             </div>

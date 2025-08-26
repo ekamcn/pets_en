@@ -151,7 +151,7 @@ export default function TermsServicesPage() {
                             Website: <a href={import.meta.env.VITE_DOMAIN_NAME} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{import.meta.env.VITE_DOMAIN_NAME}</a>
                         </span>
                         <span className='pt-4'>
-                            Last Updated: 16-7-2025
+                            Last Updated: {import.meta.env.VITE_TC_LAST_UPDATED_DATE}
                         </span>
                     </p>
                 </div>

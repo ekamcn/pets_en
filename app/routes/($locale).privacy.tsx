@@ -6,7 +6,7 @@ export default function PrivacyPolicyPage() {
             <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8 lg:gap-10 tracking-wider">
                 <p className="!text-2xl sm:!text-3xl lg:!text-3xl font-bold">Privacy Policy</p>
                 <div>
-                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base '>Updated on 16-7-2025</p>
+                    <p className='leading-6 sm:leading-7 !text-sm sm:!text-base '>Updated on {import.meta.env.VITE_PP_LAST_UPDATED_DATE}</p>
                 </div>
                 <div>
                     <h2 className="!text-xl sm:!text-2xl font-semibold">Who We Are</h2>

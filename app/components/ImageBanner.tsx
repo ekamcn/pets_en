@@ -115,7 +115,7 @@ export function ImageBannerVariant({
     description = 'That’s why we created a boutique entirely dedicated to their comfort, happiness, and everyday well-being. Our mission is to bring you high-quality, practical, soft, and irresistibly cute products to pamper your loyal companion just the way they deserve.',
     imageUrl = '',
     buttonText = 'Shop Now',
-    buttonUrl = '/collections/all',
+    buttonUrl = '/',
     className = '',
     layout = 'bottom', // "bottom", "center", "left", "right"
     theme = 'dark', // "dark", "light"

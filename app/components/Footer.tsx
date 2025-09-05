@@ -73,8 +73,8 @@ export function Footer() {
                   </div>
                   <div>
                     <div className="font-semibold">Customer Service Hours:</div>
-                    <div>Monday to Friday — 9:00 AM to 5:00 PM </div>
-                  </div>
+                    <div>{import.meta.env.VITE_BUSINESS_HOURS} </div>
+                    </div>
                   <ul className="!list-disc !list-outside !pl-5 space-y-1 mt-2 text-sm sm:text-base">
                     <li className="break-words"><strong>Company:</strong> {import.meta.env.VITE_COMPANY_NAME}</li>
                     <li className="break-words"><strong>Address:</strong> {import.meta.env.VITE_COMPANY_ADDRESS}</li>

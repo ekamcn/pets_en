@@ -184,12 +184,10 @@ export default function TermsServicesPage() {
           </h2>
           <p className="leading-6 sm:leading-7 !text-sm sm:!text-base">
             If you are not satisfied with your purchase, please contact us via{' '}
-            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL} within
-            30 days for returns or exchanges.
-            Products must be returned in original condition and packaging.
-            Refunds will be processed within
-            5 business days after we
-            receive and inspect the returned item.
+            {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL} within 30 days for
+            returns or exchanges. Products must be returned in original
+            condition and packaging. Refunds will be processed within 5 business
+            days after we receive and inspect the returned item.
           </p>
         </div>
         <div>
@@ -327,7 +325,11 @@ export default function TermsServicesPage() {
             <span>
               Website:{' '}
               <a
-                href={import.meta.env.VITE_DOMAIN_NAME}
+                href={
+                  import.meta.env.VITE_DOMAIN_NAME.startsWith('http')
+                    ? import.meta.env.VITE_DOMAIN_NAME
+                    : `https://${import.meta.env.VITE_DOMAIN_NAME}`
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline underline-offset-4"
@@ -335,9 +337,7 @@ export default function TermsServicesPage() {
                 {import.meta.env.VITE_DOMAIN_NAME}
               </a>
             </span>
-            <span className="pt-4">
-              Last Updated: 9-9-2025
-            </span>
+            <span className="pt-4">Last Updated: 9-9-2025</span>
           </p>
         </div>
       </div>

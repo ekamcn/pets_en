@@ -705,75 +705,6 @@ export type StoreCollectionsQuery = {
   };
 };
 
-export type GetCursorsQueryVariables = StorefrontAPI.Exact<{
-  first: StorefrontAPI.Scalars['Int']['input'];
-  after?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['String']['input']>;
-  query?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['String']['input']>;
-  sortKey?: StorefrontAPI.InputMaybe<StorefrontAPI.ProductSortKeys>;
-  reverse?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['Boolean']['input']>;
-}>;
-
-export type GetCursorsQuery = {
-  products: {
-    edges: Array<Pick<StorefrontAPI.ProductEdge, 'cursor'>>;
-    pageInfo: Pick<StorefrontAPI.PageInfo, 'hasNextPage'>;
-  };
-};
-
-export type MoneyFragmentFragment = Pick<
-  StorefrontAPI.MoneyV2,
-  'amount' | 'currencyCode'
->;
-
-export type ProductFragmentFragment = Pick<
-  StorefrontAPI.Product,
-  'id' | 'handle' | 'title'
-> & {
-  featuredImage?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Image, 'id' | 'altText' | 'url' | 'width' | 'height'>
-  >;
-  priceRange: {
-    minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
-    maxVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
-  };
-  metafield?: StorefrontAPI.Maybe<Pick<StorefrontAPI.Metafield, 'value'>>;
-};
-
-export type ProductListQueryVariables = StorefrontAPI.Exact<{
-  first?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['Int']['input']>;
-  after?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['String']['input']>;
-  query?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['String']['input']>;
-  sortKey?: StorefrontAPI.InputMaybe<StorefrontAPI.ProductSortKeys>;
-  reverse?: StorefrontAPI.InputMaybe<StorefrontAPI.Scalars['Boolean']['input']>;
-}>;
-
-export type ProductListQuery = {
-  products: {
-    nodes: Array<
-      Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title'> & {
-        featuredImage?: StorefrontAPI.Maybe<
-          Pick<
-            StorefrontAPI.Image,
-            'id' | 'altText' | 'url' | 'width' | 'height'
-          >
-        >;
-        priceRange: {
-          minVariantPrice: Pick<
-            StorefrontAPI.MoneyV2,
-            'amount' | 'currencyCode'
-          >;
-          maxVariantPrice: Pick<
-            StorefrontAPI.MoneyV2,
-            'amount' | 'currencyCode'
-          >;
-        };
-        metafield?: StorefrontAPI.Maybe<Pick<StorefrontAPI.Metafield, 'value'>>;
-      }
-    >;
-    pageInfo: Pick<StorefrontAPI.PageInfo, 'hasNextPage'>;
-  };
-};
-
 export type PageQueryVariables = StorefrontAPI.Exact<{
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
@@ -1406,14 +1337,6 @@ interface GeneratedQueryTypes {
   '#graphql\n  fragment Collection on Collection {\n    id\n    title\n    handle\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n  }\n  query StoreCollections(\n    $country: CountryCode\n    $endCursor: String\n    $first: Int\n    $language: LanguageCode\n    $last: Int\n    $startCursor: String\n  ) @inContext(country: $country, language: $language) {\n    collections(\n      first: $first,\n      last: $last,\n      before: $startCursor,\n      after: $endCursor\n    ) {\n      nodes {\n        ...Collection\n      }\n      pageInfo {\n        hasNextPage\n        hasPreviousPage\n        startCursor\n        endCursor\n      }\n    }\n  }\n': {
     return: StoreCollectionsQuery;
     variables: StoreCollectionsQueryVariables;
-  };
-  '#graphql\n  query GetCursors($first: Int!, $after: String, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {\n    products(first: $first, after: $after, query: $query, sortKey: $sortKey, reverse: $reverse) {\n      edges {\n        cursor\n      }\n      pageInfo {\n        hasNextPage\n      }\n    }\n  }\n': {
-    return: GetCursorsQuery;
-    variables: GetCursorsQueryVariables;
-  };
-  '#graphql\n  fragment MoneyFragment on MoneyV2 {\n    amount\n    currencyCode\n  }\n \n  fragment ProductFragment on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyFragment\n      }\n      maxVariantPrice {\n        ...MoneyFragment\n      }\n    }\n    metafield(namespace: "custom", key: "theme_types") {\n     value\n    }\n  }\n \n  query ProductList($first: Int, $after: String, $query: String, $sortKey: ProductSortKeys, $reverse: Boolean) {\n    products(first: $first, after: $after, query: $query, sortKey: $sortKey, reverse: $reverse) {\n      nodes {\n        ...ProductFragment\n      }\n      pageInfo {\n        hasNextPage\n      }\n    }\n  }\n': {
-    return: ProductListQuery;
-    variables: ProductListQueryVariables;
   };
   '#graphql\n  query Page(\n    $language: LanguageCode,\n    $country: CountryCode,\n    $handle: String!\n  )\n  @inContext(language: $language, country: $country) {\n    page(handle: $handle) {\n      handle\n      id\n      title\n      body\n      seo {\n        description\n        title\n      }\n    }\n  }\n': {
     return: PageQuery;

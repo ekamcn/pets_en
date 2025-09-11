@@ -263,7 +263,7 @@ export default function PrivacyPolicyPage() {
             <span>
               Website:{' '}
               <a
-                href={import.meta.env.VITE_DOMAIN_NAME}
+                href={`https://${import.meta.env.VITE_DOMAIN_NAME}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline underline-offset-4"

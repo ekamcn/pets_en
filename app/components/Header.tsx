@@ -294,6 +294,7 @@ export function HeaderMenu({
 
   // State for dynamic collections fetching
   const [collections, setCollections] = useState<any>(null);
+  console.log(collections,"collections");
   const [loading, setLoading] = useState(true);
   // Refs for click outside detection
   const dropdownRefs = useRef<{[key: string]: HTMLDetailsElement | null}>({});
@@ -313,7 +314,7 @@ export function HeaderMenu({
           body: JSON.stringify({
             query: ALL_COLLECTIONS_QUERY,
             variables: {
-              first: 100,
+              first: 250,
             },
           }),
         });
@@ -329,6 +330,7 @@ export function HeaderMenu({
         }
 
         const graphqlData = result.data;
+        console.log(graphqlData,"dataa all cl");
 
         if (graphqlData) {
           setCollections(graphqlData.collections);
@@ -720,6 +722,7 @@ function CollectionsAside() {
         href: `/collections/${edge.node.handle}`,
         title: edge.node.title,
       })) || [];
+      console.log(collectionsData, "collectionsData");
       
   // Fetch collections
   useEffect(() => {

@@ -64,14 +64,13 @@ export default function PaymentTermsPage() {
           <h2 className="!text-xl sm:!text-2xl font-semibold">Refunds</h2>
           <p className="leading-6 sm:leading-7 !text-sm sm:!text-base">
             If you wish to obtain a refund, please contact us at the following
-            address: {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}. You have{' '}
-            30 days from receipt of your order
-            to exercise your right of withdrawal.
+            address: {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}. You have 30
+            days from receipt of your order to exercise your right of
+            withdrawal.
           </p>
           <p className="leading-6 sm:leading-7 !text-sm sm:!text-base">
             The refund will be processed to the payment method used for the
-            order and will take 5
-            business days to appear in your bank account.
+            order and will take 5 business days to appear in your bank account.
           </p>
         </div>
         <div>
@@ -102,8 +101,8 @@ export default function PaymentTermsPage() {
           <p className="leading-6 sm:leading-7 !text-sm sm:!text-base !pb-4">
             To contact us, simply send an email to{' '}
             {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL} or call{' '}
-            {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE} during{' '}
-            Monday to Friday - 9:00 AM to 5:00 PM.
+            {import.meta.env.VITE_CUSTOMER_SERVICE_PHONE} during Monday to
+            Friday - 9:00 AM to 5:00 PM.
           </p>
           <p className="flex flex-col gap-2 !text-sm sm:!text-base">
             <span>Address: {import.meta.env.VITE_COMPANY_ADDRESS}</span>
@@ -128,7 +127,11 @@ export default function PaymentTermsPage() {
             <span>
               Website:{' '}
               <a
-                href={`${import.meta.env.VITE_DOMAIN_NAME}`}
+                href={
+                  import.meta.env.VITE_DOMAIN_NAME.startsWith('http')
+                    ? import.meta.env.VITE_DOMAIN_NAME
+                    : `https://${import.meta.env.VITE_DOMAIN_NAME}`
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline underline-offset-4"
@@ -136,9 +139,7 @@ export default function PaymentTermsPage() {
                 {import.meta.env.VITE_DOMAIN_NAME}
               </a>
             </span>
-            <span className="pt-4">
-              Last updated: 9-9-2025
-            </span>
+            <span className="pt-4">Last updated: 9-9-2025</span>
           </p>
         </div>
       </div>

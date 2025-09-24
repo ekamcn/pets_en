@@ -76,7 +76,7 @@ const sections = [
               your purchase, please contact us within 30 days of receiving your
               order to arrange a return or exchange.
             </p>
-            <p>For full details, please visit our Returns Policy page.</p>
+            <p>For full details, please visit our {" "}<a href="/returns" className="transition-colors !text-white underline underline-offset-4">Return Policy</a> page.</p>
           </div>
         ),
       },

@@ -29,8 +29,8 @@ const sections = [
               If you don’t find the answer to your question, feel free to email
               us at{' '}
               <a href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`} 
-                className=" hover:text-blue-300 transition-colors !text-[var(--color-footer)] underline underline-offset-4"
-              >
+                className=" hover:text-blue-300 transition-colors !text-white underline underline-offset-4"
+                >
                 {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL || 'Email Not Set'}
               </a>
             </p>

@@ -98,18 +98,17 @@ const sections = [
         question: 'How can I contact you?',
         answer: (
           <div className="flex flex-col gap-4">
-            <p>
-              You can reach us by visiting our Contact Us page here or by
-              emailing us at{' '}
-              <a
-                href="mailto:{import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}"
-                className=" hover:text-blue-300 transition-colors !text-white underline underline-offset-4"
-              >
-                {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
-              </a>
-              &#34;
-            </p>
-          </div>
+          <p>
+            You can reach us by visiting our Contact Us page here or by
+            emailing us at{' '}
+            <a
+              href={`mailto:${import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}`}
+              className=" hover:text-blue-300 transition-colors !text-white underline underline-offset-4"
+            >
+              {import.meta.env.VITE_CUSTOMER_SUPPORT_EMAIL}
+            </a>
+          </p>
+        </div>
         ),
       },
     ],
